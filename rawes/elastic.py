@@ -62,11 +62,11 @@ class Elastic(object):
 
         super(Elastic, self).__init__()
 
-        if not isinstance(url, list) and not isinstance(url, basestring):
+        if not isinstance(url, list) and not isinstance(url, str):
             raise ValueError('Url provided is not of right type')
 
         # Clean up url of any path items
-        if isinstance(url, basestring):
+        if isinstance(url, str):
             decoded_url = self._decode_url(url, '')
             path = self._build_path(decoded_url.path, path)
             url = decoded_url.netloc
@@ -74,7 +74,7 @@ class Elastic(object):
                 url = '{0}://{1}'.format(decoded_url.scheme, url)
 
         if connection_pool is None:
-            urls = [url] if isinstance(url, basestring) else url
+            urls = [url] if isinstance(url, str) else url
             # Validate all urls are of correct format host:port
             for host_url in urls:
                 if '//' not in host_url:
